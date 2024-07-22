@@ -335,3 +335,7 @@ body, .layout {
 .error-message {
   color: red;
 }
+
+.no-flex {
+  flex: 0;
+}

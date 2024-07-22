@@ -6,6 +6,7 @@ import Footer from '../../components/Footer/Footer'
 const RouterLayout = () => {
     const location = useLocation()
     const isDarkBg = location.pathname !== '/'
+    const noFlex = location.pathname == '/'
 
     return (
         <AppLayout
@@ -13,6 +14,7 @@ const RouterLayout = () => {
             main={<Outlet />}
             footer={<Footer />}
             darkBg={isDarkBg}
+            flex={noFlex}
         />
     )
 }
