@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 // const getErrorMessage = (code) => errorMap.get(code) || "unknown error"
 
 const Error = ({ code = '404' }) => {
-    const codeParam = useParams().get('code')
+    const { code: codeParam } = useParams()
 
     if (!code) {
         code = codeParam

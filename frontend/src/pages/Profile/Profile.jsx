@@ -3,18 +3,22 @@ import Account from '../../components/Account/Account'
 import Loader from '../../components/Loader/Loader'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logIn } from '../../store/slices/userSlice'
 
 const Profile = () => {
     const navigate = useNavigate()
-    const token = localStorage.getItem('token')
+    const dispatch = useDispatch()
+    const token = useSelector((state) => state.user.token)
 
     const [user, setUser] = useState(null)
 
-    if (!token) {
-        navigate('/')
-    }
-
     useEffect(() => {
+        if (!token) {
+            navigate('/')
+            return
+        }
+
         const fetchProfile = async () => {
             try {
                 const response = await fetch(
@@ -36,6 +40,7 @@ const Profile = () => {
                     setUser({
                         ...data.body,
                     })
+                    dispatch(logIn({ token, userInfo: data.body }))
                 }
             } catch (error) {
                 console.error('Error:', error)
@@ -44,7 +49,7 @@ const Profile = () => {
         setTimeout(() => {
             fetchProfile()
         }, 2000)
-    }, [navigate, token])
+    }, [navigate, dispatch, token])
 
     if (!user) return <Loader />
 
