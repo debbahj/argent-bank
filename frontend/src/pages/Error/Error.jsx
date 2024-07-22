@@ -1,13 +1,19 @@
 import { Link, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-// const errorMap = new Map([])
-// ["404", "page not Found],
-// ["500", "Server error"]
-// ]
-// const getErrorMessage = (code) => errorMap.get(code) || "unknown error"
+const errorMap = new Map([
+    ['401', 'Unauthorized'],
+    ['403', 'Forbidden'],
+    ['404', 'page not Found'],
+    ['500', 'Server error'],
+    ['502', 'Bad gateway'],
+    ['503', 'Service unavailable'],
+    ['504', 'Gateway timeout'],
+])
 
-const Error = ({ code = '404' }) => {
+const getErrorMessage = (code) => errorMap.get(code) || 'unknown error'
+
+const Error = ({ code }) => {
     const { code: codeParam } = useParams()
 
     if (!code) {
@@ -15,10 +21,9 @@ const Error = ({ code = '404' }) => {
     }
 
     return (
-        <div className="err404">
+        <div className="error-code">
             <h1>{code}</h1>
-            {/* <p>{getErrorMessage(code)}</p> */}
-            <p>Page not found</p>
+            <p>{getErrorMessage(code)}</p>
             <Link to="/">Go to home🏠</Link>
         </div>
     )

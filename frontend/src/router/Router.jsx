@@ -7,17 +7,6 @@ import Profile from '../pages/Profile/Profile'
 // import UserTransaction from "../pages/User-transaction/UserTransaction"
 
 const Router = () => {
-    // fetch('http://localhost:3001/api/v1/user/login', {
-    //     method: 'POST',
-    //     headers: {
-    //         'content-type': 'Application/json',
-    //     },
-    //     body: JSON.stringify({
-    //         email: 'tony@stark.com',
-    //         password: 'password123',
-    //     }),
-    // })
-
     return (
         <BrowserRouter>
             <Routes>
