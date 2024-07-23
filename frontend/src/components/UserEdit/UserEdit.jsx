@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types'
+import Button from '../Button/Button'
 
 const UserEdit = ({ firstName, lastName }) => {
     if (!firstName || !lastName) {
         return <></>
+    }
+
+    const handleClick = () => {
+        console.log('Edit Name')
     }
 
     return (
@@ -12,7 +17,12 @@ const UserEdit = ({ firstName, lastName }) => {
                 <br />
                 {firstName} {lastName}
             </h1>
-            <button className="edit-button">Edit Name</button>
+            <Button
+                className="edit"
+                type="button"
+                handleClick={handleClick}
+                children="Edit Name"
+            />
         </div>
     )
 }

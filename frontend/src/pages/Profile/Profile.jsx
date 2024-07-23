@@ -51,12 +51,41 @@ const Profile = () => {
         }, 2000)
     }, [navigate, dispatch, token])
 
+    const accounts = [
+        {
+            title: 'Checking',
+            id: 'x8349',
+            balance: '2,082.79',
+            description: 'Available',
+        },
+        {
+            title: 'Savings',
+            id: 'x6712',
+            balance: '10,928.42',
+            description: 'Available',
+        },
+        {
+            title: 'Credit Card',
+            id: 'x8349',
+            balance: '184.30',
+            description: 'Current',
+        },
+    ]
+
     if (!user) return <Loader />
 
     return (
         <>
             <UserEdit firstName={user.firstName} lastName={user.lastName} />
-            <Account />
+            {accounts.map((account, index) => (
+                <Account
+                    key={index}
+                    accountTitle={account.title}
+                    accountId={account.id}
+                    accountBalance={account.balance}
+                    accountDescription={account.description}
+                />
+            ))}
         </>
     )
 }

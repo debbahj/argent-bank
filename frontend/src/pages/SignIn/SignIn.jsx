@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logIn } from '../../store/slices/userSlice'
+import Button from '../../components/Button/Button'
 
 const SignIn = () => {
     const navigate = useNavigate()
@@ -10,6 +11,10 @@ const SignIn = () => {
     const [password, setPassword] = useState('')
     const [rememberMe, setRememberMe] = useState(false)
     const [error, setError] = useState('')
+
+    const handleClick = () => {
+        console.log('Sign In')
+    }
 
     const handleSubmit = useCallback(
         async (e) => {
@@ -85,9 +90,12 @@ const SignIn = () => {
                         />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
-                    <button className="sign-in-button" type="submit">
-                        Sign In
-                    </button>
+                    <Button
+                        handleClick={handleClick}
+                        className="sign-in"
+                        type="submit"
+                        children="Sign In"
+                    />
                     {error && <p className="error-message">{error}</p>}
                 </form>
             </section>
