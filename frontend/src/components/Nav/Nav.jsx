@@ -28,7 +28,7 @@ const Nav = () => {
                     <>
                         <NavLink to="/profile" className="main-nav-item">
                             <i className="fa fa-user-circle"></i>{' '}
-                            {userInfo?.firstName}
+                            {userInfo?.userName}
                         </NavLink>
                         <button
                             onClick={handleLogOut}

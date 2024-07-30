@@ -51,6 +51,32 @@ const Profile = () => {
         }, 2000)
     }, [navigate, dispatch, token])
 
+    const handleSaveUserName = async (newUserName) => {
+        try {
+            const response = await fetch(
+                'http://localhost:3001/api/v1/user/profile',
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ userName: newUserName }),
+                }
+            )
+
+            if (!response.ok) {
+                throw new Error('Failed to update username')
+            }
+
+            const updatedUser = await response.json()
+            setUser(updatedUser.body)
+            dispatch(logIn({ token, userInfo: updatedUser.body }))
+        } catch (error) {
+            console.error('Error updating username:', error)
+        }
+    }
+
     const accounts = [
         {
             title: 'Checking',
@@ -76,7 +102,12 @@ const Profile = () => {
 
     return (
         <>
-            <UserEdit firstName={user.firstName} lastName={user.lastName} />
+            <UserEdit
+                firstName={user.firstName}
+                lastName={user.lastName}
+                userName={user.userName}
+                onSave={handleSaveUserName}
+            />
             {accounts.map((account, index) => (
                 <Account
                     key={index}
