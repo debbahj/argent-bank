@@ -1,11 +1,11 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
   title: Bank Argent API documentation
   description: Contains all available API endpoints in this codebase
   version: 1.0.0
   termsOfService: http://swagger.io/terms/
 host: localhost:3001
-basePath: /api/v1
+basePath: /api/v2
 schemes:
   - http
 paths:
@@ -21,17 +21,17 @@ paths:
           description: Login Payload
           required: true
           schema:
-            $ref: "#/definitions/Login"
+            $ref: '#/definitions/Login'
       produces:
         - application/json
       responses:
-        "200":
+        '200':
           description: Login Successfully
           schema:
-            $ref: "#/definitions/LoginResponse"
-        "400":
+            $ref: '#/definitions/LoginResponse'
+        '400':
           description: Invalid Fields
-        "500":
+        '500':
           description: Internal Server Error
 
   /user/signup:
@@ -46,17 +46,17 @@ paths:
           description: Signup Payload
           required: true
           schema:
-            $ref: "#/definitions/User"
+            $ref: '#/definitions/User'
       produces:
         - application/json
       responses:
-        "200":
+        '200':
           description: Signup Successfully
           schema:
-            $ref: "#/definitions/ApiResponse"
-        "400":
+            $ref: '#/definitions/ApiResponse'
+        '400':
           description: Invalid Fields
-        "500":
+        '500':
           description: Internal Server Error
 
   /user/profile:
@@ -68,13 +68,13 @@ paths:
       summary: User Profile API
       description: API for fetching a user profile
       responses:
-        "200":
+        '200':
           description: User profile retrieved successully
           schema:
-            $ref: "#/definitions/ApiResponse"
-        "400":
+            $ref: '#/definitions/ApiResponse'
+        '400':
           description: Invalid Fields
-        "500":
+        '500':
           description: Internal Server Error
 
     put:
@@ -90,20 +90,20 @@ paths:
           description: Update user profile attributes
           required: true
           schema:
-            $ref: "#/definitions/UserProfile"
+            $ref: '#/definitions/UserProfile'
       produces:
         - application/json
       responses:
-        "200":
+        '200':
           description: User profile retrieved successully
           schema:
-            $ref: "#/definitions/ApiResponse"
-        "400":
+            $ref: '#/definitions/ApiResponse'
+        '400':
           description: Invalid Fields
-        "500":
+        '500':
           description: Internal Server Error
 
-  /user/transaction:
+  /user/transactions:
     get:
       security:
         - Bearer: []
@@ -117,16 +117,20 @@ paths:
           description: Attach Bearer JWT token
           required: true
           type: string
+        - in: body
+          name: params
+          schema:
+            $ref: '#/definitions/TransactionsRequest'
       produces:
         - application/json
       responses:
-        "200":
+        '200':
           description: Transaction list retrieved successully
           schema:
-            $ref: "#/definitions/Transaction"
-        "404":
+            $ref: '#/definitions/Transactions'
+        '404':
           description: Transaction list not found
-        "500":
+        '500':
           description: Internal Server Error
 
   /user/profile/transaction/{id}:
@@ -151,15 +155,15 @@ paths:
       produces:
         - application/json
       responses:
-        "200":
-          description: Transaction retrieved successully
+        '200':
+          description: Transaction retrieved successfully
           schema:
-            $ref: "#/definitions/Transaction"
-        "400":
+            $ref: '#/definitions/Transaction'
+        '400':
           description: Invalid ID supplied
-        "404":
+        '404':
           description: Transaction not found
-        "500":
+        '500':
           description: Internal Server Error
 
     patch:
@@ -185,18 +189,21 @@ paths:
           description: Update user transaction
           required: true
           schema:
-            $ref: "#/definitions/TransactionUpdate"
+            $ref: '#/definitions/TransactionUpdate'
       produces:
         - application/json
       responses:
-        "200":
-          description: Transaction updated successully
+        '200':
+          description: Transaction updated successfully
           schema:
-            $ref: "#/definitions/TransactionUpdate"
-        "400":
+            $ref: '#/definitions/Transaction'
+        '400':
           description: Invalid Fields
-        "500":
+        '404':
+          description: Transaction not found
+        '500':
           description: Internal Server Error
+
 
 securityDefinitions:
   Bearer:
@@ -266,10 +273,10 @@ definitions:
             type: string
           amount:
             type: number
-          detail:
+          details:
             type: object
             properties:
-              typeoftransaction:
+              type:
                 type: string
               category:
                 type: string
@@ -282,3 +289,37 @@ definitions:
         type: string
       notes:
         type: string
+  Transactions:
+    type: object
+    properties:
+      pagination:
+        $ref: '#/definitions/Pagination'
+      records:
+        type: array
+        items:
+          $ref: '#/definitions/Transaction'
+  TransactionsRequest:
+    type: object
+    properties:
+      date:
+        type: string
+      pagination:
+        $ref: '#/definitions/PaginationRequest'
+  Pagination:
+    type: object
+    properties:
+      page:
+        type: number
+      items_per_page:
+        type: number
+      total_pages:
+        type: number
+      total:
+        type: number
+  PaginationRequest:
+      type: object
+      properties:
+        page:
+          type: number
+        items_per_page:
+          type: number
