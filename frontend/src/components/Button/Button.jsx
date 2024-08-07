@@ -1,12 +1,15 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 
-const Button = ({ handleClick, className, type = 'button', children }) => {
+const Button = ({ variant = 'primary', children, ...props }) => {
     return (
         <button
-            onClick={handleClick}
-            className={`${className}-button`}
-            type={type}
+            {...props}
+            className={[
+                'button',
+                `${variant}-button`,
+                props.className ? props.className + '-button' : '',
+            ].join(' ')}
+            type={props.type ?? 'button'}
         >
             {children}
         </button>
@@ -15,7 +18,7 @@ const Button = ({ handleClick, className, type = 'button', children }) => {
 
 Button.propTypes = {
     children: PropTypes.node.isRequired,
-    handleClick: PropTypes.func.isRequired,
+    variant: PropTypes.string,
     className: PropTypes.string,
     type: PropTypes.string,
 }

@@ -23,12 +23,9 @@ const Account = ({
                 </p>
             </div>
             <div className="account-content-wrapper cta">
-                <Button
-                    className="transaction"
-                    type="button"
-                    handleClick={handleClick}
-                    children="View transactions"
-                />
+                <Button className="transaction" onClick={handleClick}>
+                    View transactions
+                </Button>
             </div>
         </section>
     )

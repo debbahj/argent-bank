@@ -24,16 +24,19 @@ body,
 
 .sr-only {
     border: 0 !important;
-    clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    /* 1 */
     -webkit-clip-path: inset(50%) !important;
-    clip-path: inset(50%) !important; /* 2 */
+    clip-path: inset(50%) !important;
+    /* 2 */
     height: 1px !important;
     margin: -1px !important;
     overflow: hidden !important;
     padding: 0 !important;
     position: absolute !important;
     width: 1px !important;
-    white-space: nowrap !important; /* 3 */
+    white-space: nowrap !important;
+    /* 3 */
 }
 
 .main-nav {
@@ -52,9 +55,17 @@ body,
     color: #42b983;
 }
 
+.main-nav-items {
+    display: flex;
+    gap: 15px;
+}
+
 .main-nav-item {
     text-decoration: none;
-    margin-right: 0.5rem;
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
+    cursor: pointer;
 }
 
 .main-nav-item:hover {
@@ -254,13 +265,30 @@ body,
     flex: 1;
 }
 
-.edit-button {
-    border-color: #00bc77;
-    background-color: #00bc77;
+.button {
     color: #fff;
     font-weight: bold;
     padding: 10px;
     cursor: pointer;
+}
+
+.primary-button {
+    border-color: #00bc77;
+    background-color: #00bc77;
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+    background: #ccc;
+}
+
+.secondary-button {
+    border-color: #333;
+    background-color: #555;
+}
+
+.edit-button {
+    width: 120px;
 }
 
 .header {
@@ -269,16 +297,11 @@ body,
 }
 
 .transaction-button {
-    display: block;
     width: 100%;
     padding: 8px;
     font-size: 1.1rem;
     font-weight: bold;
     margin-top: 1rem;
-    border-color: #00bc77;
-    background-color: #00bc77;
-    color: #fff;
-    cursor: pointer;
 }
 
 @media (min-width: 720px) {
@@ -317,6 +340,7 @@ body,
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -343,6 +367,7 @@ body,
 .error-code a {
     font-size: 1em;
 }
+
 .error-code a:visited {
     color: #fff;
 }
@@ -386,14 +411,32 @@ button.main-nav-item {
     cursor: not-allowed;
 }
 
-.edit-button {
-    width: 120px;
-}
-
 .button-group {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     margin-top: 25px;
+}
+
+.modal-clickawaylistener {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    background-color: #0005;
+}
+
+.modal {
+    min-width: 300px;
+    border: 1px solid green;
+    border-radius: 10px;
+    padding: 10px;
+    padding-bottom: 30px;
+    background-color: #12002b;
 }

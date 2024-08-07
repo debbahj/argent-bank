@@ -42,12 +42,7 @@ const SignIn = () => {
                     const data = await response.json()
                     console.log('login response data:', data)
                     const token = data.body.token
-                    const userInfo = data.body.firstName
-                    sessionStorage.setItem('token', token)
-                    if (rememberMe) {
-                        localStorage.setItem('token', token)
-                    }
-                    dispatch(logIn({ token, userInfo }))
+                    dispatch(logIn({ rememberMe, token }))
                     navigate('/profile')
                 }
             } catch (error) {
@@ -68,6 +63,7 @@ const SignIn = () => {
                         <input
                             type="text"
                             id="username"
+                            name="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
@@ -77,6 +73,7 @@ const SignIn = () => {
                         <input
                             type="password"
                             id="password"
+                            name="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
@@ -91,11 +88,12 @@ const SignIn = () => {
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
                     <Button
-                        handleClick={handleClick}
+                        onClick={handleClick}
                         className="sign-in"
                         type="submit"
-                        children="Sign In"
-                    />
+                    >
+                        Sign In
+                    </Button>
                     {error && <p className="error-message">{error}</p>}
                 </form>
             </section>
